@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContentStore } from "../store/content";
-import axios from "axios";
+import API from "../utils/api";
 import Navbar from "../components/Navbar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPlayer from "react-player";
@@ -23,7 +23,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getTrailers = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/trailers`);
+				const res = await API.get(`/api/v1/${contentType}/${id}/trailers`);
 				setTrailers(res.data.trailers);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -38,7 +38,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getSimilarContent = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
+				const res = await API.get(`/api/v1/${contentType}/${id}/similar`);
 				setSimilarContent(res.data.similar);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -53,7 +53,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getContentDetails = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+				const res = await API.get(`/api/v1/${contentType}/${id}/details`);
 				setContent(res.data.content);
 			} catch (error) {
 				if (error.message.includes("404")) {
